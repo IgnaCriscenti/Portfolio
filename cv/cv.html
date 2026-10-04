@@ -1,0 +1,504 @@
+<!doctype html>
+<!--
+  Fuente del CV en PDF (public/cv-ignacio-criscenti.pdf).
+  Para regenerarlo: correr `npm install`, abrir este archivo en Chrome,
+  Imprimir → Guardar como PDF, tamaño A4, márgenes "Ninguno" y
+  "Gráficos de fondo" activado.
+-->
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <title>CV — Ignacio Criscenti</title>
+    <style>
+      @font-face {
+        font-family: 'Bricolage';
+        src: url('../node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2') format('woff2');
+        font-weight: 200 800;
+      }
+      @font-face {
+        font-family: 'Atkinson';
+        src: url('../node_modules/@fontsource-variable/atkinson-hyperlegible-next/files/atkinson-hyperlegible-next-latin-wght-normal.woff2') format('woff2');
+        font-weight: 200 800;
+      }
+      @font-face {
+        font-family: 'JetBrains';
+        src: url('../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2') format('woff2');
+        font-weight: 100 800;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      :root {
+        --paper: #ffffff;
+        --side: #f4f2ed;
+        --line: #ddd9d0;
+        --ink: #15171c;
+        --muted: #565b66;
+        --accent: #c2410c;
+        --accent-soft: #fbe6da;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        width: 210mm;
+        height: 297mm;
+      }
+      body {
+        font-family: 'Atkinson', system-ui, sans-serif;
+        font-size: 9.6pt;
+        line-height: 1.45;
+        color: var(--ink);
+        background: var(--paper);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .page {
+        display: grid;
+        grid-template-columns: 66mm 1fr;
+        height: 297mm;
+        overflow: hidden;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: 'Bricolage', system-ui, sans-serif;
+        letter-spacing: -0.02em;
+      }
+      .label {
+        font-family: 'JetBrains', monospace;
+        font-size: 7.2pt;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .label b {
+        color: var(--accent);
+        font-weight: 600;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ---------- Columna lateral ---------- */
+      aside {
+        background: var(--side);
+        border-right: 1px solid var(--line);
+        padding: 14mm 8mm 12mm 10mm;
+        display: flex;
+        flex-direction: column;
+        gap: 7mm;
+      }
+      .photo {
+        position: relative;
+        width: 38mm;
+        margin: 2mm 0 0 2mm;
+      }
+      .photo img {
+        display: block;
+        width: 38mm;
+        height: 46mm;
+        object-fit: cover;
+        border-radius: 1.5mm;
+        border: 1px solid var(--line);
+      }
+      .photo::before,
+      .photo::after {
+        content: '';
+        position: absolute;
+        width: 4mm;
+        height: 4mm;
+        border: 0 solid var(--accent);
+      }
+      .photo::before {
+        top: -1.8mm;
+        left: -1.8mm;
+        border-width: 1.6px 0 0 1.6px;
+      }
+      .photo::after {
+        bottom: -1.8mm;
+        right: -1.8mm;
+        border-width: 0 1.6px 1.6px 0;
+      }
+      .side-block h2 {
+        margin-bottom: 2.2mm;
+      }
+      .contact li {
+        list-style: none;
+        margin-bottom: 1.8mm;
+      }
+      .contact .k {
+        display: block;
+      }
+      .contact .v {
+        font-weight: 600;
+        font-size: 8.8pt;
+        word-break: break-all;
+      }
+      .lang li {
+        list-style: none;
+        margin-bottom: 2.2mm;
+      }
+      .lang .row {
+        display: flex;
+        justify-content: space-between;
+        gap: 2mm;
+      }
+      .lang .row span:last-child {
+        color: var(--muted);
+        font-size: 8.4pt;
+      }
+      .bar {
+        height: 1.2mm;
+        border-radius: 1mm;
+        background: var(--line);
+        margin-top: 1mm;
+        overflow: hidden;
+      }
+      .bar i {
+        display: block;
+        height: 100%;
+        background: var(--accent);
+      }
+      .skills h3 {
+        font-size: 9.4pt;
+        margin: 2.4mm 0 1.2mm;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.1mm;
+      }
+      .chip {
+        font-family: 'JetBrains', monospace;
+        font-size: 6.9pt;
+        padding: 0.5mm 1.5mm;
+        border: 1px solid var(--line);
+        border-radius: 1mm;
+        background: #fff;
+      }
+      .traits li {
+        list-style: none;
+        padding-left: 4mm;
+        position: relative;
+        margin-bottom: 1mm;
+      }
+      .traits li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 2.3mm;
+        width: 2.2mm;
+        height: 1px;
+        background: var(--accent);
+      }
+
+      /* ---------- Columna principal ---------- */
+      main {
+        padding: 14mm 13mm 12mm 11mm;
+        display: flex;
+        flex-direction: column;
+      }
+      header .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 1.6mm;
+        font-size: 8pt;
+        font-weight: 700;
+        color: #166534;
+        background: #dcf2e3;
+        border-radius: 10mm;
+        padding: 0.6mm 2.6mm;
+      }
+      header .status::before {
+        content: '';
+        width: 1.6mm;
+        height: 1.6mm;
+        border-radius: 50%;
+        background: #166534;
+      }
+      header h1 {
+        font-size: 31pt;
+        line-height: 0.98;
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        margin-top: 4mm;
+      }
+      header h1 span {
+        color: var(--accent);
+      }
+      header .role {
+        font-family: 'Bricolage', system-ui, sans-serif;
+        font-size: 13pt;
+        font-weight: 600;
+        margin-top: 3mm;
+      }
+      header .sub {
+        color: var(--muted);
+      }
+      header .tagline {
+        margin-top: 3.5mm;
+        padding-left: 3mm;
+        border-left: 2px solid var(--accent);
+        font-size: 10pt;
+      }
+      section {
+        margin-top: 7mm;
+      }
+      .sec-head {
+        display: flex;
+        align-items: baseline;
+        gap: 3mm;
+        border-top: 1px solid var(--line);
+        padding-top: 2.2mm;
+        margin-bottom: 3mm;
+      }
+      .sec-head h2 {
+        font-size: 13.5pt;
+        font-weight: 700;
+      }
+      .entry {
+        display: grid;
+        grid-template-columns: 22mm 1fr;
+        gap: 3mm;
+        margin-bottom: 3mm;
+      }
+      .entry .when {
+        font-family: 'JetBrains', monospace;
+        font-size: 7.8pt;
+        color: var(--muted);
+        padding-top: 0.6mm;
+      }
+      .entry h3 {
+        font-size: 10.6pt;
+        font-weight: 650;
+        line-height: 1.25;
+      }
+      .entry .where {
+        color: var(--muted);
+      }
+      .tag {
+        display: inline-block;
+        margin-top: 0.8mm;
+        font-size: 7.6pt;
+        font-weight: 700;
+        padding: 0.2mm 2mm;
+        border-radius: 5mm;
+        background: #ebe8e1;
+        color: var(--muted);
+      }
+      .tag.now {
+        background: var(--accent-soft);
+        color: #9a3412;
+      }
+      .project {
+        margin-bottom: 3.6mm;
+      }
+      .project .top {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 3mm;
+      }
+      .project h3 {
+        font-size: 11pt;
+        font-weight: 700;
+      }
+      .project .ctx {
+        font-family: 'JetBrains', monospace;
+        font-size: 6.9pt;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        text-align: right;
+      }
+      .project p {
+        margin-top: 0.6mm;
+      }
+      .project .stack {
+        margin-top: 1mm;
+        font-family: 'JetBrains', monospace;
+        font-size: 7.2pt;
+        color: var(--muted);
+      }
+      .project .stack b {
+        color: var(--accent);
+        font-weight: 600;
+      }
+      .project .link {
+        font-family: 'JetBrains', monospace;
+        font-size: 7.2pt;
+        color: var(--ink);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <aside>
+        <div class="photo">
+          <img src="../src/assets/ignacio-criscenti.jpg" alt="Foto de Ignacio Criscenti" />
+        </div>
+
+        <div class="side-block contact">
+          <h2 class="label">Contacto</h2>
+          <ul>
+            <li>
+              <span class="k label">Email</span>
+              <a class="v" href="mailto:igcriscenti@gmail.com">igcriscenti@gmail.com</a>
+            </li>
+            <li>
+              <span class="k label">GitHub</span>
+              <a class="v" href="https://github.com/IgnaCriscenti">github.com/IgnaCriscenti</a>
+            </li>
+            <li>
+              <span class="k label">LinkedIn</span>
+              <a class="v" href="https://www.linkedin.com/in/ignacio-criscenti-551a733b3/">linkedin.com/in/ignacio-criscenti-551a733b3</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="side-block lang">
+          <h2 class="label">Idiomas</h2>
+          <ul>
+            <li>
+              <div class="row"><span>Español</span><span>Nativo</span></div>
+              <div class="bar"><i style="width: 100%"></i></div>
+            </li>
+            <li>
+              <div class="row"><span>Inglés</span><span>B2 · Intermedio</span></div>
+              <div class="bar"><i style="width: 70%"></i></div>
+            </li>
+            <li>
+              <div class="row"><span>Portugués</span><span>Básico</span></div>
+              <div class="bar"><i style="width: 30%"></i></div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="side-block skills">
+          <h2 class="label">Habilidades</h2>
+          <h3>Frontend</h3>
+          <div class="chips">
+            <span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">Tailwind CSS</span><span class="chip">Blazor</span>
+          </div>
+          <h3>Backend</h3>
+          <div class="chips">
+            <span class="chip">Node.js</span><span class="chip">C# / .NET 8</span><span class="chip">ASP.NET Core</span><span class="chip">Entity Framework</span><span class="chip">JWT</span>
+          </div>
+          <h3>Bases de datos</h3>
+          <div class="chips">
+            <span class="chip">SQL</span><span class="chip">MySQL</span><span class="chip">MS Access</span><span class="chip">NoSQL</span>
+          </div>
+          <h3>Herramientas y análisis</h3>
+          <div class="chips">
+            <span class="chip">Git &amp; GitHub</span><span class="chip">VS Code</span><span class="chip">UML</span><span class="chip">Modelado de datos</span>
+          </div>
+        </div>
+
+        <div class="side-block traits">
+          <h2 class="label">Fortalezas</h2>
+          <ul>
+            <li>Trabajo en equipo</li>
+            <li>Orden y responsabilidad</li>
+            <li>Entregas en tiempo y forma</li>
+            <li>Buena recepción del feedback</li>
+          </ul>
+        </div>
+      </aside>
+
+      <main>
+        <header>
+          <p class="status">Disponible para mi primer empleo en IT</p>
+          <h1>Ignacio<br />Criscenti<span>.</span></h1>
+          <p class="role">Analista en Sistemas Informáticos</p>
+          <p class="sub">Estudiante de 4.º año de Ingeniería en Sistemas</p>
+          <p class="tagline">Del diagrama al deploy: analizo, ordeno y construyo software que llega a tiempo.</p>
+        </header>
+
+        <section>
+          <div class="sec-head"><span class="label"><b>01</b></span><h2>Perfil</h2></div>
+          <p>
+            Analista en Sistemas Informáticos y estudiante de 4.º año de Ingeniería en Sistemas en la Universidad
+            Abierta Interamericana. Perfil estructurado: me gusta entender el problema, modelarlo con diagramas y recién
+            después llevarlo al código. Disfruto el trabajo en equipo y me tomo en serio entregar cada proyecto en tiempo
+            y forma. Busco mi primera experiencia profesional en desarrollo de software.
+          </p>
+        </section>
+
+        <section>
+          <div class="sec-head"><span class="label"><b>02</b></span><h2>Educación</h2></div>
+          <div class="entry">
+            <span class="when">2026 — 2027</span>
+            <div>
+              <h3>Ingeniería en Sistemas Informáticos</h3>
+              <span class="where">Universidad Abierta Interamericana</span><br />
+              <span class="tag now">En curso · 4.º año</span>
+            </div>
+          </div>
+          <div class="entry">
+            <span class="when">2023 — 2025</span>
+            <div>
+              <h3>Analista en Sistemas Informáticos</h3>
+              <span class="where">Universidad Abierta Interamericana</span><br />
+              <span class="tag">Título obtenido</span>
+            </div>
+          </div>
+          <div class="entry">
+            <span class="when">2017 — 2022</span>
+            <div>
+              <h3>Título secundario argentino y Bachillerato español</h3>
+              <span class="where">Colegio e Instituto Superior Parque España</span>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="sec-head"><span class="label"><b>03</b></span><h2>Proyectos</h2></div>
+          <div class="project">
+            <div class="top">
+              <h3>ElectroTech</h3>
+              <span class="ctx">Trabajo final · Analista en Sistemas</span>
+            </div>
+            <p>
+              Sistema integral de gestión para empresas de electrodomésticos: producción, facturación, inventario y
+              reportes, con autenticación JWT y control de acceso por roles.
+            </p>
+            <p class="stack"><b>Stack</b> Next.js · React · TypeScript · Tailwind CSS · MySQL · JWT · jsPDF</p>
+            <a class="link" href="https://github.com/Sap3252/electrotech-v2">github.com/Sap3252/electrotech-v2</a>
+          </div>
+          <div class="project">
+            <div class="top">
+              <h3>Futbolle</h3>
+              <span class="ctx">Proyecto final · Desarrollo y Arq. Web</span>
+            </div>
+            <p>
+              Juego web de adivinanza de jugadores de fútbol inspirado en Wordle: adivinar al jugador secreto en 8
+              intentos usando pistas por atributo.
+            </p>
+            <p class="stack"><b>Stack</b> HTML5 · CSS3 (Flexbox) · JavaScript</p>
+            <a class="link" href="https://ignacriscenti.github.io/futbolle-uai/">ignacriscenti.github.io/futbolle-uai</a>
+          </div>
+          <div class="project">
+            <div class="top">
+              <h3>Jugada Maestra</h3>
+              <span class="ctx">TP · Base de Datos Aplicadas</span>
+            </div>
+            <p>
+              Tablero web para gestionar y visualizar apuestas deportivas, con semaforización por colores y navegación
+              Drill Up / Drill Down entre tres entidades.
+            </p>
+            <p class="stack"><b>Stack</b> C# · .NET 8 · Blazor Server · Entity Framework Core · MS Access</p>
+            <a class="link" href="https://github.com/IgnaCriscenti/Jugada_Maestra">github.com/IgnaCriscenti/Jugada_Maestra</a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
