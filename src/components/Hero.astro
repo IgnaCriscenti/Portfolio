@@ -1,0 +1,109 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import photo from '../assets/ignacio-criscenti.jpg';
+import { profile } from '../data/profile';
+
+const stats = [
+  { value: '4.º', label: 'año de Ingeniería en Sistemas' },
+  { value: '3', label: 'proyectos destacados' },
+  { value: 'B2', label: 'nivel de inglés' },
+  { value: '2025', label: 'título de Analista' },
+];
+---
+
+<section id="inicio" aria-labelledby="hero-title" class="relative isolate overflow-hidden pt-28 pb-14 md:pt-36 md:pb-20">
+  <div class="grid-paper pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
+
+  <div class="container-page">
+    <div class="grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
+      <!-- Texto -->
+      <div class="lg:col-span-7">
+        <p class="inline-flex items-center gap-2 rounded-full border border-ok/30 bg-ok-soft px-3 py-1 text-[0.8rem] font-semibold text-ok sm:text-sm">
+          <span class="relative flex size-2" aria-hidden="true">
+            <span class="absolute inline-flex size-full animate-ping rounded-full bg-ok opacity-60 motion-reduce:hidden"></span>
+            <span class="relative inline-flex size-2 rounded-full bg-ok"></span>
+          </span>
+          {profile.status}
+        </p>
+
+        <h1 id="hero-title" class="mt-6 text-[clamp(3.1rem,12vw,6.75rem)] font-extrabold tracking-[-0.04em]">
+          <span class="block">{profile.firstName}</span>
+          <span class="block">{profile.lastName}<span class="text-accent">.</span></span>
+        </h1>
+
+        <p class="mt-6 font-display text-xl font-semibold tracking-tight sm:text-2xl">{profile.role}</p>
+        <p class="mt-1 text-muted">{profile.subtitle}</p>
+
+        <p class="mt-7 max-w-xl border-l-2 border-accent pl-4 text-lg leading-relaxed sm:text-xl">
+          {profile.tagline}
+        </p>
+
+        <div class="mt-9 flex flex-wrap items-center gap-3">
+          <a href="#proyectos" class="btn btn-primary">
+            Ver proyectos
+            <Icon name="arrow-down" class="size-4" />
+          </a>
+          <a href="#contacto" class="btn btn-secondary">Contactarme</a>
+          <a
+            href={profile.cv}
+            download
+            class="inline-flex min-h-11 items-center gap-2 rounded-md px-2 font-semibold text-accent transition-colors hover:text-accent-strong"
+          >
+            <Icon name="download" class="size-4" />
+            <span class="link-underline">Descargar CV</span>
+            <span class="sr-only">(PDF)</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Foto -->
+      <div class="lg:col-span-5">
+        <figure class="relative mx-auto w-full max-w-[17rem] xs:max-w-[20rem] sm:max-w-sm">
+          <figcaption class="annotation mb-5 flex items-center gap-3">
+            fig. 01 — {profile.name}
+            <span class="h-px flex-1 bg-line-strong" aria-hidden="true"></span>
+          </figcaption>
+          <div class="crop-marks">
+            <Image
+              src={photo}
+              alt="Retrato de Ignacio Criscenti con camisa blanca, sonriendo levemente a cámara"
+              widths={[320, 480, 640]}
+              sizes="(min-width: 640px) 24rem, 20rem"
+              loading="eager"
+              fetchpriority="high"
+              class="aspect-[4/5] w-full rounded-md border border-line object-cover"
+            />
+          </div>
+
+          <div
+            class="absolute -bottom-6 -left-3 rounded-md border border-line bg-surface px-4 py-3 shadow-[0_12px_30px_-12px_rgb(0_0_0/0.35)] sm:-left-8"
+          >
+            <p class="annotation !text-[0.68rem]">// stack principal</p>
+            <p class="mt-0.5 font-mono text-sm font-semibold">TypeScript · Next.js · C# · SQL</p>
+          </div>
+
+        </figure>
+      </div>
+    </div>
+
+    <!-- Datos clave -->
+    <dl class="mt-16 grid grid-cols-2 border-t border-line md:mt-20 md:grid-cols-4">
+      {
+        stats.map((s, i) => (
+          <div
+            class:list={[
+              'flex flex-col-reverse border-line py-5 pr-4',
+              i % 2 === 1 && 'border-l pl-4 md:pl-6',
+              i >= 2 && 'border-t md:border-t-0',
+              i === 2 && 'md:border-l md:pl-6',
+            ]}
+          >
+            <dt class="mt-1 text-sm text-muted">{s.label}</dt>
+            <dd class="font-display text-3xl font-bold tracking-tight sm:text-4xl">{s.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>

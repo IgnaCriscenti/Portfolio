@@ -1,0 +1,155 @@
+---
+import Icon from './Icon.astro';
+import { nav, profile } from '../data/profile';
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 border-b border-transparent bg-bg/85 backdrop-blur-md transition-colors duration-300 data-[scrolled=true]:border-line"
+>
+  <nav aria-label="Principal" class="container-page flex h-16 items-center justify-between gap-4">
+    <a href="#inicio" class="group flex items-center gap-3 rounded-md">
+      <span
+        class="relative grid size-9 place-items-center rounded-md bg-ink font-display text-sm font-bold text-bg"
+        aria-hidden="true"
+      >
+        IC
+        <span class="absolute right-1 bottom-1 size-1.5 bg-accent transition-transform group-hover:scale-150"></span>
+      </span>
+      <span class="sr-only font-display text-lg font-semibold tracking-tight sm:not-sr-only">{profile.name}</span>
+    </a>
+
+    <div class="flex items-center gap-1 md:gap-2">
+      <ul class="hidden items-center gap-1 md:flex">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                data-nav-link
+                class="group flex items-baseline gap-1.5 rounded-md px-3 py-2 text-[0.95rem] text-muted transition-colors hover:text-ink aria-[current=true]:text-ink"
+              >
+                <span class="font-mono text-[0.7rem] text-accent" aria-hidden="true">
+                  {item.num}
+                </span>
+                <span class="link-underline">{item.label}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <button
+        type="button"
+        id="theme-toggle"
+        class="grid size-10 place-items-center rounded-md text-ink transition-colors hover:bg-surface-2"
+        aria-label="Cambiar a modo oscuro"
+        title="Cambiar tema"
+      >
+        <Icon name="moon" class="size-5 dark:hidden" />
+        <Icon name="sun" class="hidden size-5 dark:block" />
+      </button>
+
+      <button
+        type="button"
+        id="menu-toggle"
+        class="group grid size-10 place-items-center rounded-md text-ink transition-colors hover:bg-surface-2 md:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Abrir menú"
+      >
+        <Icon name="menu" class="size-6 group-aria-expanded:hidden" />
+        <Icon name="close" class="hidden size-6 group-aria-expanded:block" />
+      </button>
+    </div>
+  </nav>
+
+  <!-- Menú mobile -->
+  <div id="mobile-menu" class="hidden border-t border-line bg-bg md:hidden" data-open="false">
+    <ul class="container-page flex flex-col py-3">
+      {
+        nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              data-nav-link
+              class="flex items-baseline gap-3 border-b border-line py-3.5 font-display text-2xl font-semibold last:border-0 aria-[current=true]:text-accent"
+            >
+              <span class="font-mono text-xs text-accent" aria-hidden="true">
+                {item.num}
+              </span>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</header>
+
+<script>
+  const root = document.documentElement;
+  const header = document.getElementById('site-header')!;
+  const themeBtn = document.getElementById('theme-toggle')!;
+  const menuBtn = document.getElementById('menu-toggle')!;
+  const menu = document.getElementById('mobile-menu')!;
+
+  // ----- Tema claro / oscuro -----
+  const syncThemeLabel = () => {
+    const isDark = root.dataset.theme === 'dark';
+    themeBtn.setAttribute('aria-label', isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+  };
+  syncThemeLabel();
+  themeBtn.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {
+      /* almacenamiento no disponible: el tema igual cambia en esta visita */
+    }
+    syncThemeLabel();
+  });
+
+  // ----- Menú mobile -----
+  const setMenu = (open: boolean) => {
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    menu.classList.toggle('hidden', !open);
+  };
+  menuBtn.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
+  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menuBtn.getAttribute('aria-expanded') === 'true') {
+      setMenu(false);
+      menuBtn.focus();
+    }
+  });
+  matchMedia('(min-width: 48rem)').addEventListener('change', (e) => e.matches && setMenu(false));
+
+  // ----- Borde inferior al hacer scroll -----
+  const onScroll = () => (header.dataset.scrolled = String(window.scrollY > 8));
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // ----- Sección activa en el menú -----
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]')];
+  const sections = ['#inicio', ...new Set(links.map((l) => l.getAttribute('href')!))]
+    .map((href) => document.querySelector<HTMLElement>(href))
+    .filter((s): s is HTMLElement => !!s);
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const id = `#${entry.target.id}`;
+        links.forEach((l) => {
+          if (l.getAttribute('href') === id) l.setAttribute('aria-current', 'true');
+          else l.removeAttribute('aria-current');
+        });
+      });
+    },
+    { rootMargin: '-45% 0px -50% 0px' },
+  );
+  sections.forEach((s) => observer.observe(s));
+</script>
