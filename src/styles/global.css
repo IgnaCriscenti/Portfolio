@@ -1,0 +1,266 @@
+@import 'tailwindcss';
+
+@import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource-variable/atkinson-hyperlegible-next';
+@import '@fontsource-variable/jetbrains-mono';
+
+/* El modo oscuro se controla con data-theme en <html> (no solo con la preferencia del sistema) */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* ---------- Tokens de diseño ---------- */
+:root {
+  color-scheme: light;
+  --bg: #f4f2ed;
+  --surface: #ffffff;
+  --surface-2: #ebe8e1;
+  --line: #ddd9d0;
+  --line-strong: #c9c4b8;
+  --ink: #15171c;
+  --muted: #565b66;
+  --accent: #c2410c;
+  --accent-strong: #9a3412;
+  --on-accent: #ffffff;
+  --accent-soft: #fbe6da;
+  --ok: #166534;
+  --ok-soft: #dcf2e3;
+  --warn: #b45309;
+  --bad: #b91c1c;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0e1014;
+  --surface: #161920;
+  --surface-2: #1d2129;
+  --line: #2a2f3a;
+  --line-strong: #3a404d;
+  --ink: #eceae4;
+  --muted: #a0a6b1;
+  --accent: #ff7a3d;
+  --accent-strong: #ff9a6b;
+  --on-accent: #0e1014;
+  --accent-soft: #3a2116;
+  --ok: #4ade80;
+  --ok-soft: #13301f;
+  --warn: #fbbf24;
+  --bad: #f87171;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-on-accent: var(--on-accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-bad: var(--bad);
+}
+
+@theme {
+  --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Atkinson Hyperlegible Next Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --breakpoint-xs: 26rem;
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    overflow-x: clip;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ---------- Componentes reutilizables ---------- */
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 48rem) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  /* Etiqueta técnica en monoespaciada: "01 / Sobre mí" */
+  .annotation {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.875rem;
+    padding: 0.7rem 1.25rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  .btn-primary:hover {
+    background: var(--accent-strong);
+  }
+  .btn-secondary {
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink);
+  }
+  .btn-secondary:hover {
+    border-color: var(--ink);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.55rem;
+    border: 1px solid var(--line);
+    border-radius: 0.375rem;
+    background: var(--surface-2);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  /* Link con subrayado animado */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.25s ease;
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  /* Marcas de corte alrededor de la foto (estética de plano técnico) */
+  .crop-marks {
+    position: relative;
+  }
+  .crop-marks::before,
+  .crop-marks::after {
+    content: '';
+    position: absolute;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-color: var(--accent);
+    border-style: solid;
+    pointer-events: none;
+  }
+  .crop-marks::before {
+    top: -0.6rem;
+    left: -0.6rem;
+    border-width: 2px 0 0 2px;
+  }
+  .crop-marks::after {
+    bottom: -0.6rem;
+    right: -0.6rem;
+    border-width: 0 2px 2px 0;
+  }
+
+  /* Fondo de grilla tenue (papel milimetrado) */
+  .grid-paper {
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--line) 55%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--line) 55%, transparent) 1px, transparent 1px);
+    background-size: 2.5rem 2.5rem;
+    mask-image: radial-gradient(ellipse at 70% 30%, #000 0%, transparent 70%);
+  }
+}
+
+/* ---------- Animación de aparición al hacer scroll ---------- */
+/* Solo se oculta si hay JS y el usuario no pidió movimiento reducido */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  html.js [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
