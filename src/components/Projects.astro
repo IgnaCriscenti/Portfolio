@@ -1,0 +1,87 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import ProjectCover from './ProjectCover.astro';
+import Icon from './Icon.astro';
+import { projects } from '../data/profile';
+
+const urls: Record<string, string> = {
+  electrotech: 'electrotech / panel-general',
+  futbolle: 'futbolle / partida',
+  jugada: 'jugada-maestra / tablero',
+};
+---
+
+<section id="proyectos" aria-labelledby="proyectos-title" class="py-16 md:py-24">
+  <div class="container-page">
+    <SectionHeading
+      id="proyectos-title"
+      num="02"
+      label="Proyectos"
+      title="Sistemas que analicé, diseñé y construí."
+      intro="Trabajos de la facultad donde recorrí todo el proceso: relevar el problema, modelarlo y llevarlo a un producto que funciona."
+    />
+
+    <div class="grid gap-6 md:grid-cols-2">
+      {
+        projects.map((p, i) => (
+          <article
+            aria-labelledby={`${p.id}-title`}
+            class:list={[
+              'group flex flex-col rounded-xl border border-line bg-surface p-3 transition duration-300 hover:-translate-y-1 hover:border-line-strong hover:shadow-[0_24px_48px_-28px_rgb(0_0_0/0.45)] motion-reduce:hover:translate-y-0 sm:p-4',
+              p.featured && 'md:col-span-2 lg:grid lg:grid-cols-12 lg:items-center lg:gap-8',
+            ]}
+            data-reveal
+            style={`--reveal-delay: ${i * 90}ms`}
+          >
+            <div class:list={[p.featured && 'lg:col-span-7']}>
+              <ProjectCover variant={p.cover} url={urls[p.cover]} />
+            </div>
+
+            <div class:list={['flex flex-1 flex-col px-2 pt-6 pb-3 sm:px-3', p.featured && 'lg:col-span-5 lg:pt-3 lg:pr-4']}>
+              <p class="annotation flex flex-wrap items-center gap-x-3 gap-y-1">
+                <span class="text-accent">{p.code}</span>
+                <span>{p.context}</span>
+              </p>
+
+              <h3 id={`${p.id}-title`} class="mt-3 text-3xl font-bold sm:text-4xl">
+                {p.title}
+              </h3>
+
+              <p class="mt-4 text-muted">{p.description}</p>
+
+              <ul class="mt-5 space-y-2">
+                {p.highlights.map((h) => (
+                  <li class="flex gap-3 text-[0.95rem]">
+                    <span class="mt-[0.6rem] h-px w-3 shrink-0 bg-accent" aria-hidden="true" />
+                    <span>{h}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <ul class="mt-6 flex flex-wrap gap-2" aria-label={`Tecnologías usadas en ${p.title}`}>
+                {p.stack.map((t) => (
+                  <li class="chip">{t}</li>
+                ))}
+              </ul>
+
+              <div class="mt-auto flex flex-wrap gap-3 pt-7">
+                <a href={p.repo} target="_blank" rel="noopener noreferrer" class="btn btn-secondary !min-h-10 !py-2 text-sm">
+                  <Icon name="github" class="size-4" />
+                  Repositorio
+                  <span class="sr-only">de {p.title} en GitHub (se abre en una pestaña nueva)</span>
+                </a>
+                {p.demo && (
+                  <a href={p.demo} target="_blank" rel="noopener noreferrer" class="btn btn-primary !min-h-10 !py-2 text-sm">
+                    Ver demo
+                    <Icon name="arrow-up-right" class="size-4" />
+                    <span class="sr-only">de {p.title} (se abre en una pestaña nueva)</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

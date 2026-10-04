@@ -1,0 +1,206 @@
+---
+// Portadas ilustradas de cada proyecto (SVG liviano, se adapta al modo claro/oscuro).
+// Sintetizan la interfaz de cada sistema. Si más adelante hay capturas reales,
+// pueden reemplazar el <svg> dentro del mismo marco de ventana.
+interface Props {
+  variant: 'electrotech' | 'futbolle' | 'jugada';
+  url: string;
+}
+const { variant, url } = Astro.props;
+
+const bars = [46, 68, 54, 82, 61, 95, 74, 108];
+const line = [130, 112, 120, 96, 104, 80, 88, 66];
+
+const futRows = [
+  ['bad', 'ok', 'bad', 'up', 'down', 'up'],
+  ['ok', 'bad', 'ok', 'up', 'up', 'down'],
+  ['ok', 'ok', 'ok', 'down', 'up', 'ok'],
+  ['ok', 'ok', 'ok', 'ok', 'ok', 'ok'],
+];
+const futCols = ['NAC', 'CLUB', 'POS', 'EDAD', 'OVR', 'ALT'];
+
+const jmRows = [
+  { w: 120, amt: 150, s: 'ok' },
+  { w: 96, amt: 110, s: 'warn' },
+  { w: 132, amt: 170, s: 'ok' },
+  { w: 84, amt: 70, s: 'bad' },
+  { w: 110, amt: 130, s: 'warn' },
+];
+const sem: Record<string, string> = { ok: '#16a34a', warn: '#f59e0b', bad: '#dc2626' };
+---
+
+<div class="overflow-hidden rounded-md border border-line bg-surface-2" aria-hidden="true">
+  <!-- Barra de ventana -->
+  <div class="flex items-center gap-3 border-b border-line bg-surface px-3 py-2">
+    <span class="flex gap-1.5">
+      <span class="size-2.5 rounded-full bg-line-strong"></span>
+      <span class="size-2.5 rounded-full bg-line-strong"></span>
+      <span class="size-2.5 rounded-full bg-line-strong"></span>
+    </span>
+    <span class="truncate rounded bg-surface-2 px-2 py-0.5 font-mono text-[0.68rem] text-muted">{url}</span>
+  </div>
+
+  {
+    variant === 'electrotech' && (
+      <svg viewBox="0 0 640 360" class="block h-auto w-full" role="presentation">
+        {/* Sidebar */}
+        <rect x="0" y="0" width="132" height="360" class="fill-surface" />
+        <rect x="20" y="22" width="26" height="26" rx="6" class="fill-accent" />
+        <rect x="54" y="30" width="56" height="10" rx="3" class="fill-ink" opacity=".85" />
+        {[0, 1, 2, 3, 4, 5].map((i) => (
+          <g>
+            <rect
+              x="14"
+              y={78 + i * 38}
+              width="104"
+              height="28"
+              rx="6"
+              class={i === 0 ? 'fill-accent-soft' : 'fill-transparent'}
+            />
+            <rect x="26" y={88 + i * 38} width="10" height="9" rx="2" class={i === 0 ? 'fill-accent' : 'fill-line-strong'} />
+            <rect x="44" y={89 + i * 38} width={[48, 58, 40, 52, 44, 36][i]} height="7" rx="3" class={i === 0 ? 'fill-accent' : 'fill-line-strong'} />
+          </g>
+        ))}
+        {/* Encabezado */}
+        <rect x="156" y="26" width="140" height="14" rx="4" class="fill-ink" opacity=".85" />
+        <rect x="156" y="48" width="90" height="8" rx="3" class="fill-line-strong" />
+        <rect x="532" y="22" width="88" height="30" rx="7" class="fill-accent" />
+        {/* KPIs */}
+        {[0, 1, 2].map((i) => (
+          <g>
+            <rect x={156 + i * 158} y="76" width="146" height="72" rx="10" class="fill-surface stroke-line" stroke-width="1" />
+            <rect x={170 + i * 158} y="92" width="56" height="7" rx="3" class="fill-line-strong" />
+            <rect x={170 + i * 158} y="110" width={[78, 62, 70][i]} height="18" rx="4" class="fill-ink" opacity=".85" />
+            <rect x={262 + i * 158} y="114" width="26" height="12" rx="6" class={i === 1 ? 'fill-accent-soft' : 'fill-ok-soft'} />
+          </g>
+        ))}
+        {/* Gráfico de barras */}
+        <rect x="156" y="164" width="300" height="176" rx="10" class="fill-surface stroke-line" stroke-width="1" />
+        <rect x="172" y="180" width="80" height="8" rx="3" class="fill-line-strong" />
+        {bars.map((h, i) => (
+          <rect x={180 + i * 33} y={324 - h} width="20" height={h} rx="4" class={i === bars.length - 1 ? 'fill-accent' : 'fill-line-strong'} />
+        ))}
+        {/* Gráfico de línea */}
+        <rect x="468" y="164" width="152" height="176" rx="10" class="fill-surface stroke-line" stroke-width="1" />
+        <rect x="484" y="180" width="60" height="8" rx="3" class="fill-line-strong" />
+        <polyline
+          points={line.map((y, i) => `${484 + i * 17},${y + 150}`).join(' ')}
+          fill="none"
+          class="stroke-accent"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <circle cx={484 + 7 * 17} cy={line[7] + 150} r="5" class="fill-accent" />
+        {[0, 1, 2].map((i) => (
+          <rect x="484" y={262 + i * 22} width={[104, 84, 96][i]} height="7" rx="3" class="fill-line" />
+        ))}
+      </svg>
+    )
+  }
+
+  {
+    variant === 'futbolle' && (
+      <svg viewBox="0 0 640 360" class="block h-auto w-full" role="presentation">
+        <text x="32" y="44" class="fill-ink" font-family="ui-sans-serif, system-ui, sans-serif" font-weight="800" font-size="24" letter-spacing="1">
+          FUTBOLLE
+        </text>
+        <rect x="476" y="24" width="132" height="28" rx="14" class="fill-surface stroke-line" stroke-width="1" />
+        <text x="542" y="43" text-anchor="middle" class="fill-muted" font-family="ui-monospace, monospace" font-size="12">
+          intento 4 / 8
+        </text>
+        {/* Buscador */}
+        <rect x="32" y="66" width="576" height="34" rx="8" class="fill-surface stroke-line" stroke-width="1" />
+        <rect x="48" y="80" width="120" height="7" rx="3" class="fill-line-strong" />
+        {/* Encabezados */}
+        {futCols.map((c, i) => (
+          <text
+            x={196 + i * 70 + 29}
+            y="128"
+            text-anchor="middle"
+            class="fill-muted"
+            font-family="ui-monospace, monospace"
+            font-size="11"
+          >
+            {c}
+          </text>
+        ))}
+        {futRows.map((row, r) => (
+          <g>
+            <rect x="32" y={142 + r * 52} width="150" height="42" rx="8" class="fill-surface stroke-line" stroke-width="1" />
+            <circle cx="54" cy={163 + r * 52} r="11" class="fill-line-strong" />
+            <rect x="72" y={159 + r * 52} width={[86, 72, 94, 80][r]} height="8" rx="3" class="fill-ink" opacity=".75" />
+            {row.map((cell, c) => {
+              const x = 196 + c * 70;
+              const y = 142 + r * 52;
+              const fill = cell === 'bad' ? '#dc2626' : cell === 'ok' ? '#16a34a' : '#6b7280';
+              return (
+                <g>
+                  <rect x={x} y={y} width="58" height="42" rx="8" fill={fill} />
+                  {cell === 'up' && <path d={`M${x + 29} ${y + 11} l9 11 h-6 v10 h-6 v-10 h-6 z`} fill="#fff" />}
+                  {cell === 'down' && <path d={`M${x + 29} ${y + 31} l9 -11 h-6 v-10 h-6 v10 h-6 z`} fill="#fff" />}
+                  {cell === 'ok' && (
+                    <path d={`M${x + 20} ${y + 21} l6 6 l12 -12`} stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                  )}
+                  {cell === 'bad' && (
+                    <path d={`M${x + 22} ${y + 14} l14 14 M${x + 36} ${y + 14} l-14 14`} stroke="#fff" stroke-width="3.5" stroke-linecap="round" />
+                  )}
+                </g>
+              );
+            })}
+          </g>
+        ))}
+      </svg>
+    )
+  }
+
+  {
+    variant === 'jugada' && (
+      <svg viewBox="0 0 640 360" class="block h-auto w-full" role="presentation">
+        {/* Breadcrumb Drill Down */}
+        <g font-family="ui-monospace, monospace" font-size="12">
+          <rect x="32" y="24" width="72" height="26" rx="6" class="fill-surface stroke-line" stroke-width="1" />
+          <text x="68" y="41" text-anchor="middle" class="fill-muted">Deporte</text>
+          <path d="M112 31 l6 6 l-6 6" fill="none" class="stroke-muted" stroke-width="1.6" />
+          <rect x="126" y="24" width="64" height="26" rx="6" class="fill-surface stroke-line" stroke-width="1" />
+          <text x="158" y="41" text-anchor="middle" class="fill-muted">Liga</text>
+          <path d="M198 31 l6 6 l-6 6" fill="none" class="stroke-muted" stroke-width="1.6" />
+          <rect x="212" y="24" width="84" height="26" rx="6" class="fill-accent" />
+          <text x="254" y="41" text-anchor="middle" class="fill-on-accent" font-weight="700">Partido</text>
+        </g>
+        {/* Botones drill */}
+        <rect x="500" y="22" width="52" height="30" rx="7" class="fill-surface stroke-line" stroke-width="1" />
+        <path d="M526 44 v-14 m-6 6 l6 -6 l6 6" fill="none" class="stroke-ink" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <rect x="558" y="22" width="52" height="30" rx="7" class="fill-surface stroke-line" stroke-width="1" />
+        <path d="M584 30 v14 m-6 -6 l6 6 l6 -6" fill="none" class="stroke-ink" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        {/* Tabla semaforizada */}
+        <rect x="32" y="70" width="400" height="270" rx="10" class="fill-surface stroke-line" stroke-width="1" />
+        <rect x="48" y="88" width="70" height="7" rx="3" class="fill-line-strong" />
+        <rect x="216" y="88" width="56" height="7" rx="3" class="fill-line-strong" />
+        <rect x="366" y="88" width="44" height="7" rx="3" class="fill-line-strong" />
+        <line x1="32" y1="108" x2="432" y2="108" class="stroke-line" />
+        {jmRows.map((r, i) => (
+          <g>
+            <rect x="48" y={124 + i * 42} width={r.w} height="9" rx="3" class="fill-ink" opacity=".75" />
+            <rect x="216" y={124 + i * 42} width={r.amt * 0.7} height="9" rx="3" class="fill-line-strong" />
+            <rect x="366" y={118 + i * 42} width="48" height="20" rx="10" fill={sem[r.s]} opacity=".18" />
+            <circle cx="390" cy={128 + i * 42} r="6" fill={sem[r.s]} />
+            {i < jmRows.length - 1 && <line x1="48" y1={146 + i * 42} x2="416" y2={146 + i * 42} class="stroke-line" />}
+          </g>
+        ))}
+        {/* Resumen por estado */}
+        <rect x="448" y="70" width="160" height="270" rx="10" class="fill-surface stroke-line" stroke-width="1" />
+        <circle cx="528" cy="160" r="52" fill="none" class="stroke-line" stroke-width="18" />
+        <circle cx="528" cy="160" r="52" fill="none" stroke="#16a34a" stroke-width="18" stroke-dasharray="147 327" transform="rotate(-90 528 160)" />
+        <circle cx="528" cy="160" r="52" fill="none" stroke="#f59e0b" stroke-width="18" stroke-dasharray="98 327" stroke-dashoffset="-147" transform="rotate(-90 528 160)" />
+        <circle cx="528" cy="160" r="52" fill="none" stroke="#dc2626" stroke-width="18" stroke-dasharray="82 327" stroke-dashoffset="-245" transform="rotate(-90 528 160)" />
+        {['ok', 'warn', 'bad'].map((s, i) => (
+          <g>
+            <circle cx="474" cy={250 + i * 26} r="6" fill={sem[s]} />
+            <rect x="488" y={246 + i * 26} width={[80, 64, 72][i]} height="8" rx="3" class="fill-line-strong" />
+          </g>
+        ))}
+      </svg>
+    )
+  }
+</div>
