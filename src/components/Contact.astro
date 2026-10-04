@@ -1,0 +1,242 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+import { profile } from '../data/profile';
+
+const channels = [
+  { href: profile.github, label: 'GitHub', handle: `@${profile.githubUser}`, icon: 'github' as const, external: true },
+  { href: profile.linkedin, label: 'LinkedIn', handle: profile.linkedinUser, icon: 'linkedin' as const, external: true },
+  { href: profile.cv, label: 'Currículum', handle: 'Descargar PDF', icon: 'download' as const, download: true },
+];
+
+const inputClass =
+  'mt-2 block w-full rounded-md border border-line-strong bg-bg px-3.5 py-3 text-ink placeholder:text-muted/80 transition-colors focus:border-accent focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent aria-[invalid=true]:border-bad';
+---
+
+<section id="contacto" aria-labelledby="contacto-title" class="py-16 md:py-24">
+  <div class="container-page">
+    <SectionHeading
+      id="contacto-title"
+      num="04"
+      label="Contacto"
+      title="Hablemos."
+      intro="¿Tenés una búsqueda abierta o un proyecto en mente? Escribime y te respondo a la brevedad."
+    />
+
+    <div class="grid gap-10 md:grid-cols-12 md:gap-8">
+      <!-- Canales -->
+      <div class="md:col-span-9 md:col-start-4 lg:col-span-4 lg:col-start-4" data-reveal>
+        <p class="annotation">Email</p>
+        <div class="mt-2 flex flex-wrap items-center gap-2">
+          <a
+            href={`mailto:${profile.email}`}
+            class="link-underline font-display text-[clamp(1.25rem,5vw,1.75rem)] font-semibold tracking-tight break-all"
+          >
+            {profile.email}
+          </a>
+          <button
+            type="button"
+            id="copy-email"
+            data-email={profile.email}
+            class="grid size-10 place-items-center rounded-md border border-line text-muted transition-colors hover:border-ink hover:text-ink"
+            aria-label="Copiar email al portapapeles"
+          >
+            <Icon name="copy" class="size-4" />
+          </button>
+        </div>
+        <p id="copy-status" class="mt-1 h-5 text-sm text-ok" role="status" aria-live="polite"></p>
+
+        <ul class="mt-8 divide-y divide-line border-y border-line">
+          {
+            channels.map((c) => (
+              <li>
+                <a
+                  href={c.href}
+                  {...(c.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  {...(c.download ? { download: '' } : {})}
+                  class="group flex items-center gap-4 py-4"
+                >
+                  <span class="grid size-10 shrink-0 place-items-center rounded-md bg-surface-2 text-ink transition-colors group-hover:bg-accent group-hover:text-on-accent">
+                    <Icon name={c.icon} class="size-5" />
+                  </span>
+                  <span class="min-w-0 flex-1">
+                    <span class="block font-semibold">{c.label}</span>
+                    <span class="block truncate text-sm text-muted">{c.handle}</span>
+                  </span>
+                  <Icon
+                    name={c.download ? 'download' : 'arrow-up-right'}
+                    class="size-5 text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
+                  />
+                  {c.external && <span class="sr-only">(se abre en una pestaña nueva)</span>}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Formulario -->
+      <div class="md:col-span-9 md:col-start-4 lg:col-span-5 lg:col-start-8" data-reveal style="--reveal-delay: 120ms">
+        <form
+          id="contact-form"
+          class="rounded-xl border border-line bg-surface p-5 sm:p-7"
+          novalidate
+          aria-describedby="form-help"
+        >
+          <p id="form-help" class="annotation mb-6">Todos los campos son obligatorios</p>
+
+          <div class="space-y-5">
+            <div>
+              <label for="name" class="font-semibold">Nombre</label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                autocomplete="name"
+                required
+                minlength="2"
+                maxlength="80"
+                placeholder="Tu nombre"
+                aria-describedby="name-error"
+                class={inputClass}
+              />
+              <p id="name-error" class="mt-1.5 hidden text-sm font-semibold text-bad" data-error-for="name"></p>
+            </div>
+
+            <div>
+              <label for="email" class="font-semibold">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                inputmode="email"
+                required
+                maxlength="120"
+                placeholder="nombre@empresa.com"
+                aria-describedby="email-error"
+                class={inputClass}
+              />
+              <p id="email-error" class="mt-1.5 hidden text-sm font-semibold text-bad" data-error-for="email"></p>
+            </div>
+
+            <div>
+              <label for="message" class="font-semibold">Mensaje</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                required
+                minlength="10"
+                maxlength="1000"
+                placeholder="Contame sobre la búsqueda o el proyecto…"
+                aria-describedby="message-error message-count"
+                class={`${inputClass} resize-y`}></textarea>
+              <div class="mt-1.5 flex justify-between gap-3">
+                <p id="message-error" class="hidden text-sm font-semibold text-bad" data-error-for="message"></p>
+                <p id="message-count" class="ml-auto shrink-0 font-mono text-xs whitespace-nowrap text-muted">0 / 1000</p>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary mt-7 w-full sm:w-auto">
+            Enviar mensaje
+            <Icon name="send" class="size-4" />
+          </button>
+
+          <p id="form-status" class="mt-4 text-sm" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // ----- Copiar email -----
+  const copyBtn = document.getElementById('copy-email') as HTMLButtonElement;
+  const copyStatus = document.getElementById('copy-status')!;
+  copyBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(copyBtn.dataset.email!);
+      copyStatus.textContent = 'Email copiado';
+    } catch {
+      copyStatus.textContent = 'No se pudo copiar: seleccioná el email manualmente';
+    }
+    setTimeout(() => (copyStatus.textContent = ''), 2500);
+  });
+
+  // ----- Validación del formulario -----
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const status = document.getElementById('form-status')!;
+  const counter = document.getElementById('message-count')!;
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const TO = 'igcriscenti@gmail.com';
+
+  type Field = HTMLInputElement | HTMLTextAreaElement;
+
+  const rules: Record<string, (v: string) => string> = {
+    name: (v) => {
+      if (!v) return 'Ingresá tu nombre.';
+      if (v.length < 2) return 'El nombre debe tener al menos 2 caracteres.';
+      return '';
+    },
+    email: (v) => {
+      if (!v) return 'Ingresá tu email.';
+      if (!EMAIL_RE.test(v)) return 'Ingresá un email válido, por ejemplo nombre@empresa.com.';
+      return '';
+    },
+    message: (v) => {
+      if (!v) return 'Escribí un mensaje.';
+      if (v.length < 10) return `El mensaje es muy corto (mínimo 10 caracteres, llevás ${v.length}).`;
+      if (v.length > 1000) return 'El mensaje no puede superar los 1000 caracteres.';
+      return '';
+    },
+  };
+
+  const validate = (field: Field) => {
+    const msg = rules[field.name](field.value.trim());
+    const errorEl = form.querySelector<HTMLElement>(`[data-error-for="${field.name}"]`)!;
+    field.setAttribute('aria-invalid', String(!!msg));
+    errorEl.textContent = msg;
+    errorEl.classList.toggle('hidden', !msg);
+    return !msg;
+  };
+
+  const fields = [...form.querySelectorAll<Field>('input, textarea')];
+
+  fields.forEach((field) => {
+    // Valida al salir del campo y, si ya tenía error, mientras se corrige
+    field.addEventListener('blur', () => field.value && validate(field));
+    field.addEventListener('input', () => {
+      if (field.getAttribute('aria-invalid') === 'true') validate(field);
+      if (field.name === 'message') counter.textContent = `${field.value.length} / 1000`;
+    });
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const results = fields.map(validate);
+    if (results.includes(false)) {
+      const firstInvalid = fields[results.indexOf(false)];
+      firstInvalid.focus();
+      status.className = 'mt-4 text-sm font-semibold text-bad';
+      status.textContent = 'Revisá los campos marcados.';
+      return;
+    }
+
+    const data = new FormData(form);
+    const name = String(data.get('name')).trim();
+    const email = String(data.get('email')).trim();
+    const message = String(data.get('message')).trim();
+    const subject = `Contacto desde el portfolio — ${name}`;
+    const body = `${message}\n\n—\n${name}\n${email}`;
+
+    // Sitio estático: se abre el cliente de correo con el mensaje precargado
+    window.location.href = `mailto:${TO}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    status.className = 'mt-4 text-sm font-semibold text-ok';
+    status.textContent = '¡Listo! Se abrió tu app de correo con el mensaje precargado. Solo falta tocar “Enviar”.';
+    form.reset();
+    counter.textContent = '0 / 1000';
+  });
+</script>

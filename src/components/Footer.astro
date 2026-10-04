@@ -1,0 +1,16 @@
+---
+import Icon from './Icon.astro';
+import { profile } from '../data/profile';
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line">
+  <div class="container-page flex flex-col gap-4 py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+    <p>© {year} {profile.name}</p>
+    <p class="font-mono text-xs">Hecho con Astro + Tailwind CSS</p>
+    <a href="#inicio" class="inline-flex min-h-10 items-center gap-2 font-semibold text-ink hover:text-accent">
+      Volver arriba
+      <Icon name="arrow-up" class="size-4" />
+    </a>
+  </div>
+</footer>
