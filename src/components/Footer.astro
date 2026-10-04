@@ -7,7 +7,15 @@ const year = new Date().getFullYear();
 <footer class="border-t border-line">
   <div class="container-page flex flex-col gap-4 py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
     <p>© {year} {profile.name}</p>
-    <p class="font-mono text-xs">Hecho con Astro + Tailwind CSS</p>
+    <a
+      href="https://github.com/IgnaCriscenti/Portfolio"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex min-h-10 items-center font-mono text-xs hover:text-ink"
+    >
+      Código fuente · Astro + Tailwind
+      <span class="sr-only">(se abre en una pestaña nueva)</span>
+    </a>
     <a href="#inicio" class="inline-flex min-h-10 items-center gap-2 font-semibold text-ink hover:text-accent">
       Volver arriba
       <Icon name="arrow-up" class="size-4" />

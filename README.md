@@ -2,7 +2,7 @@
 
 Portfolio personal de **Ignacio Criscenti**, Analista en Sistemas Informáticos y estudiante de 4.º año de Ingeniería en Sistemas (UAI).
 
-🔗 **Sitio publicado:** _(agregar acá el link de Vercel una vez deployado)_
+🔗 **Sitio publicado:** https://ignacio-criscenti.vercel.app
 
 ![Vista previa del portfolio](public/og-image.png)
 
