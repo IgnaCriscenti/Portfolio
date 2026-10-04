@@ -1,0 +1,73 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { bio, facts, skills } from '../data/profile';
+---
+
+<section id="sobre-mi" aria-labelledby="sobre-mi-title" class="py-16 md:py-24">
+  <div class="container-page">
+    <SectionHeading id="sobre-mi-title" num="01" label="Sobre mí" title="Estructura primero, código después." />
+
+    <div class="grid gap-12 md:grid-cols-12 md:gap-8">
+      <!-- Bio -->
+      <div class="space-y-5 text-lg leading-relaxed md:col-span-7 md:col-start-4 lg:col-span-5 lg:col-start-4" data-reveal>
+        {bio.map((p) => <p>{p}</p>)}
+      </div>
+
+      <!-- Ficha técnica -->
+      <aside
+        aria-label="Ficha técnica"
+        class="rounded-lg border border-line bg-surface md:col-span-9 md:col-start-4 lg:col-span-4 lg:col-start-9"
+        data-reveal
+        style="--reveal-delay: 120ms"
+      >
+        <p class="annotation border-b border-line px-5 py-3">Ficha técnica</p>
+        <dl class="divide-y divide-line">
+          {
+            facts.map((f) => (
+              <div class="grid grid-cols-[6.5rem_1fr] gap-3 px-5 py-4">
+                <dt class="pt-0.5 font-mono text-xs tracking-wide text-muted uppercase">{f.label}</dt>
+                <dd>
+                  <span class="block font-semibold">{f.value}</span>
+                  <span class="block text-sm text-muted">{f.note}</span>
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </aside>
+    </div>
+
+    <!-- Habilidades -->
+    <div class="mt-20 md:grid md:grid-cols-12 md:gap-8">
+      <h3 class="annotation mb-6 !font-mono !text-[0.78rem] !tracking-[0.04em] md:col-span-3 md:mb-0" data-reveal>
+        Habilidades y tecnologías
+      </h3>
+      <ul class="grid gap-4 sm:grid-cols-2 md:col-span-9">
+        {
+          skills.map((s, i) => (
+            <li
+              class="group rounded-lg border border-line bg-surface p-5 transition-colors hover:border-line-strong"
+              data-reveal
+              style={`--reveal-delay: ${i * 80}ms`}
+            >
+              <div class="flex items-center justify-between gap-3">
+                <h4 class="font-display text-xl font-semibold tracking-tight">{s.group}</h4>
+                <span
+                  class="rounded border border-line px-1.5 py-0.5 font-mono text-[0.7rem] text-muted transition-colors group-hover:border-accent group-hover:text-accent"
+                  aria-hidden="true"
+                >
+                  {s.code}
+                </span>
+              </div>
+              <ul class="mt-4 flex flex-wrap gap-2" aria-label={`Tecnologías de ${s.group}`}>
+                {s.items.map((item) => (
+                  <li class="chip">{item}</li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
