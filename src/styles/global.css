@@ -200,6 +200,28 @@
     color: var(--ink);
   }
 
+  /* Chip con logo de la tecnología (TechBadge.astro) */
+  .tech-badge {
+    gap: 0.4rem;
+    padding-block: 0.3rem;
+    transition: border-color 0.2s ease;
+  }
+  .tech-badge svg {
+    width: 0.95rem;
+    height: 0.95rem;
+    flex-shrink: 0;
+    color: var(--brand, var(--muted));
+  }
+  [data-theme='dark'] .tech-badge svg {
+    color: var(--brand-dark, var(--muted));
+  }
+  .tech-badge:hover {
+    border-color: color-mix(in srgb, var(--brand, var(--accent)) 55%, var(--line));
+  }
+  [data-theme='dark'] .tech-badge:hover {
+    border-color: color-mix(in srgb, var(--brand-dark, var(--accent)) 55%, var(--line));
+  }
+
   /* Link con subrayado animado */
   .link-underline {
     background-image: linear-gradient(currentColor, currentColor);

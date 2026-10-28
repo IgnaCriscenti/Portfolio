@@ -1,5 +1,6 @@
 ---
 import SectionHeading from './SectionHeading.astro';
+import TechBadge from './TechBadge.astro';
 import { bio, facts, skills } from '../data/profile';
 
 // Anchos alternados en la grilla bento: 7 + 5, después 5 + 7
@@ -57,7 +58,7 @@ const skillSpan = ['md:col-span-7', 'md:col-span-5', 'md:col-span-5', 'md:col-sp
             </div>
             <ul class="mt-4 flex flex-wrap gap-2" aria-label={`Tecnologías de ${s.group}`}>
               {s.items.map((item) => (
-                <li class="chip">{item}</li>
+                <TechBadge name={item} />
               ))}
             </ul>
           </li>
