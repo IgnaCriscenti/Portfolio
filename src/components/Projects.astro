@@ -21,14 +21,14 @@ const urls: Record<string, string> = {
       intro="Trabajos de la facultad donde recorrí todo el proceso: relevar el problema, modelarlo y llevarlo a un producto que funciona."
     />
 
-    <div class="grid gap-6 md:grid-cols-2">
+    <div class="grid gap-4 md:grid-cols-2">
       {
         projects.map((p, i) => (
           <article
             aria-labelledby={`${p.id}-title`}
             class:list={[
-              'group flex flex-col rounded-xl border border-line bg-surface p-3 transition duration-300 hover:-translate-y-1 hover:border-line-strong hover:shadow-[0_24px_48px_-28px_rgb(0_0_0/0.45)] motion-reduce:hover:translate-y-0 sm:p-4',
-              p.featured && 'md:col-span-2 lg:grid lg:grid-cols-12 lg:items-center lg:gap-8',
+              'bento group flex flex-col p-3 sm:p-4',
+              p.featured && 'border-beam md:col-span-2 lg:grid lg:grid-cols-12 lg:items-center lg:gap-8',
             ]}
             data-reveal
             style={`--reveal-delay: ${i * 90}ms`}

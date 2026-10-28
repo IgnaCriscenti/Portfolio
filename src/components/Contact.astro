@@ -10,7 +10,7 @@ const channels = [
 ];
 
 const inputClass =
-  'mt-2 block w-full rounded-md border border-line-strong bg-bg px-3.5 py-3 text-ink placeholder:text-muted/80 transition-colors focus:border-accent focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent aria-[invalid=true]:border-bad';
+  'mt-2 block w-full rounded-lg border border-line-strong bg-bg px-3.5 py-3 text-ink placeholder:text-muted/80 transition-colors focus:border-accent focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent aria-[invalid=true]:border-bad';
 ---
 
 <section id="contacto" aria-labelledby="contacto-title" class="py-16 md:py-24">
@@ -23,9 +23,9 @@ const inputClass =
       intro="¿Tenés una búsqueda abierta o un proyecto en mente? Escribime y te respondo a la brevedad."
     />
 
-    <div class="grid gap-10 md:grid-cols-12 md:gap-8">
+    <div class="grid gap-4 md:grid-cols-12">
       <!-- Canales -->
-      <div class="md:col-span-9 md:col-start-4 lg:col-span-4 lg:col-start-4" data-reveal>
+      <div class="bento flex flex-col p-6 sm:p-8 md:col-span-5" data-reveal>
         <p class="annotation">Email</p>
         <div class="mt-2 flex flex-wrap items-center gap-2">
           <a
@@ -46,7 +46,7 @@ const inputClass =
         </div>
         <p id="copy-status" class="mt-1 h-5 text-sm text-ok" role="status" aria-live="polite"></p>
 
-        <ul class="mt-8 divide-y divide-line border-y border-line">
+        <ul class="mt-6 divide-y divide-line border-t border-line">
           {
             channels.map((c) => (
               <li>
@@ -73,13 +73,24 @@ const inputClass =
             ))
           }
         </ul>
+
+        <div class="mt-auto space-y-2 border-t border-line pt-5 text-sm">
+          <p class="flex items-center gap-2 text-muted">
+            <Icon name="pin" class="size-4 text-accent" />
+            {profile.location}
+          </p>
+          <p class="flex items-center gap-2 font-semibold text-ok">
+            <span class="mx-1 size-2 rounded-full bg-ok" aria-hidden="true"></span>
+            {profile.status}
+          </p>
+        </div>
       </div>
 
       <!-- Formulario -->
-      <div class="md:col-span-9 md:col-start-4 lg:col-span-5 lg:col-start-8" data-reveal style="--reveal-delay: 120ms">
+      <div class="md:col-span-7" data-reveal style="--reveal-delay: 120ms">
         <form
           id="contact-form"
-          class="rounded-xl border border-line bg-surface p-5 sm:p-7"
+          class="bento p-6 sm:p-8"
           novalidate
           aria-describedby="form-help"
         >

@@ -7,46 +7,49 @@ import { education, languages } from '../data/profile';
   <div class="container-page">
     <SectionHeading id="formacion-title" num="03" label="Formación" title="Formación e idiomas." />
 
-    <div class="grid gap-14 md:grid-cols-12 md:gap-8">
+    <div class="grid gap-4 md:grid-cols-12">
       <!-- Línea de tiempo -->
-      <ol class="relative md:col-span-9 md:col-start-4 lg:col-span-5 lg:col-start-4">
-        {
-          education.map((e, i) => (
-            <li class="relative grid gap-1 pb-10 pl-8 last:pb-0" data-reveal style={`--reveal-delay: ${i * 90}ms`}>
-              {i < education.length - 1 && (
-                <span class="absolute top-3 bottom-0 left-[5px] w-px bg-line-strong" aria-hidden="true" />
-              )}
-              <span
-                class:list={[
-                  'absolute top-1.5 left-0 size-[11px] rounded-full border-2',
-                  e.current ? 'border-accent bg-accent' : 'border-line-strong bg-bg',
-                ]}
-                aria-hidden="true"
-              />
-              <p class="font-mono text-sm text-muted">{e.period}</p>
-              <h3 class="mt-1 text-2xl font-semibold">{e.title}</h3>
-              <p>{e.place}</p>
-              <p
-                class:list={[
-                  'mt-2 w-fit rounded-full px-2.5 py-0.5 text-sm font-semibold',
-                  e.current ? 'bg-accent-soft text-accent-strong' : 'bg-surface-2 text-muted',
-                ]}
-              >
-                {e.detail}
-              </p>
-            </li>
-          ))
-        }
-      </ol>
+      <div class="bento p-6 sm:p-8 md:col-span-7" data-reveal>
+        <p class="annotation mb-6">// estudios</p>
+        <ol class="relative">
+          {
+            education.map((e, i) => (
+              <li class="relative grid gap-1 pb-10 pl-8 last:pb-0">
+                {i < education.length - 1 && (
+                  <span class="absolute top-3 bottom-0 left-[5px] w-px bg-line-strong" aria-hidden="true" />
+                )}
+                <span
+                  class:list={[
+                    'absolute top-1.5 left-0 size-[11px] rounded-full border-2',
+                    e.current ? 'border-accent bg-accent' : 'border-line-strong bg-bg',
+                  ]}
+                  aria-hidden="true"
+                />
+                <p class="font-mono text-sm text-muted">{e.period}</p>
+                <h3 class="mt-1 text-2xl font-semibold">{e.title}</h3>
+                <p>{e.place}</p>
+                <p
+                  class:list={[
+                    'mt-2 w-fit rounded-full px-2.5 py-0.5 text-sm font-semibold',
+                    e.current ? 'bg-accent-soft text-accent-strong' : 'bg-surface-2 text-muted',
+                  ]}
+                >
+                  {e.detail}
+                </p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
 
       <!-- Idiomas -->
-      <div class="md:col-span-9 md:col-start-4 lg:col-span-4 lg:col-start-9" data-reveal style="--reveal-delay: 150ms">
-        <div class="rounded-lg border border-line bg-surface">
-          <h3 class="annotation border-b border-line px-5 py-3 !font-mono !text-[0.78rem] !tracking-[0.04em]">Idiomas</h3>
+      <div class="md:col-span-5" data-reveal style="--reveal-delay: 120ms">
+        <div class="bento">
+          <h3 class="annotation border-b border-line px-6 py-4 !font-mono !text-[0.78rem] !tracking-[0.04em]">Idiomas</h3>
           <ul class="divide-y divide-line">
             {
               languages.map((l) => (
-                <li class="px-5 py-4">
+                <li class="px-6 py-4">
                   <div class="flex items-baseline justify-between gap-3">
                     <span class="font-semibold">{l.name}</span>
                     <span class="text-right text-sm text-muted">{l.level}</span>
