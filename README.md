@@ -15,8 +15,9 @@ Portfolio personal de **Ignacio Criscenti**, Analista en Sistemas Informáticos 
 | TypeScript | Datos del sitio y scripts del cliente tipados. |
 | [Fontsource](https://fontsource.org) | Tipografías de Google Fonts auto-hospedadas: Bricolage Grotesque, Atkinson Hyperlegible Next y JetBrains Mono. |
 | `astro:assets` | Optimización automática de la foto (WebP en varios tamaños). |
+| [Simple Icons](https://simpleicons.org) | Logos de las tecnologías, embebidos como SVG al compilar. |
 
-No usa librerías de UI ni frameworks de JavaScript: el menú, el cambio de tema, las animaciones y la validación del formulario son scripts chicos en TypeScript.
+No usa librerías de UI ni frameworks de JavaScript: el menú, el cambio de tema, las animaciones, los efectos de las tarjetas y la validación del formulario son scripts chicos en TypeScript y CSS.
 
 ## Cómo correrlo localmente
 
@@ -42,6 +43,7 @@ Otros comandos:
 ├── cv/
 │   ├── cv.html                # Fuente del CV en PDF
 │   └── cv-ats.html            # Versión simple a una columna para portales de empleo
+├── og/og-image.html           # Fuente de la imagen de vista previa al compartir el link
 ├── public/
 │   ├── cv-ignacio-criscenti.pdf
 │   ├── cv-ignacio-criscenti-ats.pdf
@@ -60,11 +62,11 @@ Para cambiar textos, proyectos o links alcanza con editar `src/data/profile.ts`.
 
 ## Secciones
 
-1. **Hero** — nombre, rol, frase de presentación, botones "Ver proyectos" / "Contactarme" / "Descargar CV" y foto.
-2. **Sobre mí** — bio, ficha técnica y habilidades agrupadas (Frontend, Backend, Bases de datos, Herramientas).
-3. **Proyectos** — ElectroTech, Futbolle y Jugada Maestra, con descripción, tecnologías y links.
+1. **Hero** — nombre, rol, frase de presentación, botones "Ver proyectos" / "Contactarme" / "Descargar CV", foto con ubicación y datos clave.
+2. **Sobre mí** — bio, ficha técnica y habilidades agrupadas (Frontend, Backend, Bases de datos, Herramientas) con el logo de cada tecnología.
+3. **Proyectos** — ElectroTech (proyecto de título), Futbolle y Jugada Maestra, con descripción, tecnologías y links.
 4. **Formación** — línea de tiempo de estudios e idiomas.
-5. **Contacto** — email, GitHub, LinkedIn, CV y formulario validado.
+5. **Contacto** — email, GitHub, LinkedIn, CV, ubicación y formulario validado.
 
 ## Detalles técnicos
 
@@ -72,7 +74,7 @@ Para cambiar textos, proyectos o links alcanza con editar `src/data/profile.ts`.
 - **HTML semántico**: `header`, `nav`, `main`, `section`, `article`, `footer` y un único `h1`.
 - **Accesibilidad**: link "Saltar al contenido", foco visible, `alt` en la imagen, contraste AA verificado en ambos temas, menú mobile con `aria-expanded` y cierre con Escape, errores del formulario anunciados con `aria-invalid` y `aria-live`.
 - **Modo claro / oscuro**: respeta la preferencia del sistema y recuerda la elección del usuario. Un script en el `<head>` aplica el tema antes de pintar para evitar el parpadeo.
-- **Animaciones sutiles** al hacer scroll con `IntersectionObserver`, desactivadas si el usuario tiene `prefers-reduced-motion`.
+- **Animaciones sutiles**: aparición al hacer scroll con `IntersectionObserver`, brillo que sigue al mouse en las tarjetas y borde animado en el proyecto destacado. Todo se desactiva si el usuario tiene `prefers-reduced-motion`.
 - **Formulario de contacto**: valida nombre (mín. 2 caracteres), email (formato válido) y mensaje (10 a 1000 caracteres). Como el sitio es estático, al enviarlo se abre la app de correo con el mensaje precargado.
 - **CV descargable** generado desde `cv/cv.html` (Chrome → Imprimir → Guardar como PDF, A4, márgenes "Ninguno", con gráficos de fondo). La versión `cv/cv-ats.html` se exporta igual pero con márgenes "Predeterminados".
 
@@ -94,4 +96,4 @@ Cada `git push` a `main` vuelve a publicar el sitio automáticamente.
 
 ## Diseño
 
-La dirección de arte (concepto, paleta, tipografías y layout) está documentada en [`DISENO.md`](DISENO.md).
+La dirección de arte (concepto bento, efectos, paleta, tipografías y layout) está documentada en [`DISENO.md`](DISENO.md).
