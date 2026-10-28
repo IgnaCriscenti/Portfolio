@@ -66,6 +66,8 @@ export type Project = {
   demo?: string;
   cover: 'electrotech' | 'futbolle' | 'jugada';
   featured?: boolean;
+  /** Etiqueta destacada junto al título */
+  label?: string;
 };
 
 export const projects: Project[] = [
@@ -85,6 +87,7 @@ export const projects: Project[] = [
     repo: 'https://github.com/Sap3252/electrotech-v2',
     cover: 'electrotech',
     featured: true,
+    label: 'Proyecto de título',
   },
   {
     id: 'futbolle',
