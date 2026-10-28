@@ -9,6 +9,7 @@ export const profile = {
   subtitle: 'Estudiante de 4.º año de Ingeniería en Sistemas',
   tagline: 'Del diagrama al deploy: analizo, ordeno y construyo software que llega a tiempo.',
   status: 'Disponible para mi primer empleo en IT',
+  location: 'Rosario, Santa Fe',
   email: 'igcriscenti@gmail.com',
   github: 'https://github.com/IgnaCriscenti',
   githubUser: 'IgnaCriscenti',

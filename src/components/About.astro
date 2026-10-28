@@ -1,30 +1,31 @@
 ---
 import SectionHeading from './SectionHeading.astro';
 import { bio, facts, skills } from '../data/profile';
+
+// Anchos alternados en la grilla bento: 7 + 5, después 5 + 7
+const skillSpan = ['md:col-span-7', 'md:col-span-5', 'md:col-span-5', 'md:col-span-7'];
 ---
 
 <section id="sobre-mi" aria-labelledby="sobre-mi-title" class="py-16 md:py-24">
   <div class="container-page">
     <SectionHeading id="sobre-mi-title" num="01" label="Sobre mí" title="Estructura primero, código después." />
 
-    <div class="grid gap-12 md:grid-cols-12 md:gap-8">
+    <div class="grid gap-4 md:grid-cols-12">
       <!-- Bio -->
-      <div class="space-y-5 text-lg leading-relaxed md:col-span-7 md:col-start-4 lg:col-span-5 lg:col-start-4" data-reveal>
-        {bio.map((p) => <p>{p}</p>)}
+      <div class="bento p-6 sm:p-8 md:col-span-7" data-reveal>
+        <p class="annotation mb-5">// quién soy</p>
+        <div class="space-y-5 text-lg leading-relaxed">
+          {bio.map((p) => <p>{p}</p>)}
+        </div>
       </div>
 
       <!-- Ficha técnica -->
-      <aside
-        aria-label="Ficha técnica"
-        class="rounded-lg border border-line bg-surface md:col-span-9 md:col-start-4 lg:col-span-4 lg:col-start-9"
-        data-reveal
-        style="--reveal-delay: 120ms"
-      >
-        <p class="annotation border-b border-line px-5 py-3">Ficha técnica</p>
+      <aside aria-label="Ficha técnica" class="bento md:col-span-5" data-reveal style="--reveal-delay: 100ms">
+        <p class="annotation border-b border-line px-6 py-4">Ficha técnica</p>
         <dl class="divide-y divide-line">
           {
             facts.map((f) => (
-              <div class="grid grid-cols-[6.5rem_1fr] gap-3 px-5 py-4">
+              <div class="grid grid-cols-[6.5rem_1fr] gap-3 px-6 py-4">
                 <dt class="pt-0.5 font-mono text-xs tracking-wide text-muted uppercase">{f.label}</dt>
                 <dd>
                   <span class="block font-semibold">{f.value}</span>
@@ -38,36 +39,30 @@ import { bio, facts, skills } from '../data/profile';
     </div>
 
     <!-- Habilidades -->
-    <div class="mt-20 md:grid md:grid-cols-12 md:gap-8">
-      <h3 class="annotation mb-6 !font-mono !text-[0.78rem] !tracking-[0.04em] md:col-span-3 md:mb-0" data-reveal>
-        Habilidades y tecnologías
-      </h3>
-      <ul class="grid gap-4 sm:grid-cols-2 md:col-span-9">
-        {
-          skills.map((s, i) => (
-            <li
-              class="group rounded-lg border border-line bg-surface p-5 transition-colors hover:border-line-strong"
-              data-reveal
-              style={`--reveal-delay: ${i * 80}ms`}
-            >
-              <div class="flex items-center justify-between gap-3">
-                <h4 class="font-display text-xl font-semibold tracking-tight">{s.group}</h4>
-                <span
-                  class="rounded border border-line px-1.5 py-0.5 font-mono text-[0.7rem] text-muted transition-colors group-hover:border-accent group-hover:text-accent"
-                  aria-hidden="true"
-                >
-                  {s.code}
-                </span>
-              </div>
-              <ul class="mt-4 flex flex-wrap gap-2" aria-label={`Tecnologías de ${s.group}`}>
-                {s.items.map((item) => (
-                  <li class="chip">{item}</li>
-                ))}
-              </ul>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+    <h3 class="annotation mt-16 mb-6 !font-mono !text-[0.78rem] !tracking-[0.04em]" data-reveal>
+      Habilidades y tecnologías
+    </h3>
+    <ul class="grid gap-4 md:grid-cols-12">
+      {
+        skills.map((s, i) => (
+          <li class:list={['bento group p-6', skillSpan[i]]} data-reveal style={`--reveal-delay: ${i * 80}ms`}>
+            <div class="flex items-center justify-between gap-3">
+              <h4 class="font-display text-xl font-semibold tracking-tight">{s.group}</h4>
+              <span
+                class="rounded-md border border-line px-1.5 py-0.5 font-mono text-[0.7rem] text-muted transition-colors group-hover:border-accent group-hover:text-accent"
+                aria-hidden="true"
+              >
+                {s.code}
+              </span>
+            </div>
+            <ul class="mt-4 flex flex-wrap gap-2" aria-label={`Tecnologías de ${s.group}`}>
+              {s.items.map((item) => (
+                <li class="chip">{item}</li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </section>

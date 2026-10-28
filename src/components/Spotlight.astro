@@ -1,0 +1,13 @@
+<script>
+  // Brillo que sigue al mouse dentro de las tarjetas .bento.
+  // Solo en dispositivos con mouse: en pantallas táctiles no tiene sentido.
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll<HTMLElement>('.bento').forEach((card) => {
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+        card.style.setProperty('--my', `${e.clientY - r.top}px`);
+      });
+    });
+  }
+</script>
