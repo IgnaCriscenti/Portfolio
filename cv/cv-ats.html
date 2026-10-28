@@ -1,0 +1,163 @@
+<!doctype html>
+<!--
+  Versión simple del CV, a una columna, pensada para portales de empleo y
+  sistemas de filtrado automático (ATS): sin columnas, sin gráficos y con
+  títulos estándar. Fuente de public/cv-ignacio-criscenti-ats.pdf.
+  Se regenera igual que cv.html (Chrome → Imprimir → Guardar como PDF, A4,
+  márgenes "Predeterminados").
+-->
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <title>CV — Ignacio Criscenti</title>
+    <style>
+      @font-face {
+        font-family: 'Atkinson';
+        src: url('../node_modules/@fontsource-variable/atkinson-hyperlegible-next/files/atkinson-hyperlegible-next-latin-wght-normal.woff2') format('woff2');
+        font-weight: 200 800;
+      }
+
+      @page {
+        size: A4;
+        margin: 12mm 18mm;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: 'Atkinson', Arial, sans-serif;
+        font-size: 9.9pt;
+        line-height: 1.45;
+        color: #111;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      h1 {
+        font-size: 22pt;
+        line-height: 1.1;
+      }
+      .role {
+        font-size: 12pt;
+        font-weight: 700;
+        margin-top: 1mm;
+      }
+      .contact {
+        margin-top: 2mm;
+        color: #333;
+      }
+      h2 {
+        font-size: 11pt;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border-bottom: 1px solid #999;
+        padding-bottom: 1mm;
+        margin: 5mm 0 2.2mm;
+      }
+      .item {
+        margin-bottom: 2.6mm;
+      }
+      .item h3 {
+        font-size: 10.6pt;
+      }
+      .meta {
+        color: #444;
+      }
+      ul {
+        padding-left: 5mm;
+        margin-top: 1mm;
+      }
+      li {
+        margin-bottom: 0.6mm;
+      }
+      .skills p {
+        margin-bottom: 1mm;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Ignacio Criscenti</h1>
+      <p class="role">Analista en Sistemas Informáticos · Estudiante de Ingeniería en Sistemas</p>
+      <p class="contact">
+        Rosario, Santa Fe · <a href="mailto:igcriscenti@gmail.com">igcriscenti@gmail.com</a><br />
+        <a href="https://github.com/IgnaCriscenti">github.com/IgnaCriscenti</a> ·
+        <a href="https://www.linkedin.com/in/ignacio-criscenti-551a733b3/">linkedin.com/in/ignacio-criscenti-551a733b3</a>
+      </p>
+    </header>
+
+    <section>
+      <h2>Perfil</h2>
+      <p>
+        Analista en Sistemas Informáticos y estudiante de 4.º año de Ingeniería en Sistemas en la Universidad Abierta
+        Interamericana. Perfil estructurado: me gusta entender el problema, modelarlo con diagramas y recién después
+        llevarlo al código. Busco mi primera experiencia profesional en desarrollo de software.
+      </p>
+    </section>
+
+    <section>
+      <h2>Educación</h2>
+      <div class="item">
+        <h3>Ingeniería en Sistemas Informáticos — Universidad Abierta Interamericana</h3>
+        <p class="meta">2023 — 2027 (est.) · En curso, 4.º año</p>
+      </div>
+      <div class="item">
+        <h3>Analista en Sistemas Informáticos — Universidad Abierta Interamericana</h3>
+        <p class="meta">2023 — 2025 · Título obtenido</p>
+      </div>
+      <div class="item">
+        <h3>Título secundario argentino y Bachillerato español — Colegio e Instituto Superior Parque España</h3>
+        <p class="meta">2018 — 2022</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Proyectos</h2>
+      <div class="item">
+        <h3>ElectroTech — Trabajo final de Analista en Sistemas</h3>
+        <p>
+          Sistema integral de gestión para empresas de electrodomésticos: producción, facturación, inventario y
+          reportes.
+        </p>
+        <ul>
+          <li>Autenticación con JWT y control de acceso por roles (RBAC).</li>
+          <li>Facturación, remitos y control de inventario y stock.</li>
+          <li>Reportes de ventas con gráficos y exportación a PDF.</li>
+        </ul>
+        <p class="meta">Tecnologías: Next.js, React, TypeScript, Tailwind CSS, MySQL, JWT, jsPDF · Repositorio: github.com/Sap3252/electrotech-v2</p>
+      </div>
+      <div class="item">
+        <h3>Futbolle — Proyecto final de Desarrollo y Arquitecturas Web</h3>
+        <p>
+          Juego web de adivinanza de jugadores de fútbol inspirado en Wordle, con pistas por atributo, tres
+          dificultades y buscador con autocompletado.
+        </p>
+        <p class="meta">Tecnologías: HTML5, CSS3 (Flexbox), JavaScript · Demo: ignacriscenti.github.io/futbolle-uai</p>
+      </div>
+      <div class="item">
+        <h3>Jugada Maestra — Trabajo práctico de Base de Datos Aplicadas</h3>
+        <p>
+          Tablero web para gestionar apuestas deportivas, con semaforización por colores y navegación Drill Up / Drill
+          Down entre tres entidades.
+        </p>
+        <p class="meta">Tecnologías: C#, .NET 8, Blazor Server, Entity Framework Core, Microsoft Access · Repositorio: github.com/IgnaCriscenti/Jugada_Maestra</p>
+      </div>
+    </section>
+
+    <section class="skills">
+      <h2>Habilidades técnicas</h2>
+      <p><strong>Frontend:</strong> HTML5, CSS3, JavaScript, TypeScript, React, Next.js, Tailwind CSS, Blazor</p>
+      <p><strong>Backend:</strong> Node.js, C#, .NET 8, ASP.NET Core, Entity Framework Core, JWT</p>
+      <p><strong>Bases de datos:</strong> SQL, MySQL, Microsoft Access, NoSQL</p>
+      <p><strong>Herramientas y análisis:</strong> Git, GitHub, VS Code, UML, modelado de datos, relevamiento de requisitos</p>
+    </section>
+
+    <section>
+      <h2>Idiomas</h2>
+      <p>Español: nativo · Inglés: B2 (intermedio-alto) · Portugués: básico</p>
+    </section>
+  </body>
+</html>

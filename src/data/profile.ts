@@ -120,7 +120,7 @@ export const projects: Project[] = [
 
 export const education = [
   {
-    period: '2026 — 2027',
+    period: '2023 — 2027 (est.)',
     title: 'Ingeniería en Sistemas Informáticos',
     place: 'Universidad Abierta Interamericana',
     detail: 'En curso · 4.º año',
@@ -133,7 +133,7 @@ export const education = [
     detail: 'Título intermedio obtenido',
   },
   {
-    period: '2017 — 2022',
+    period: '2018 — 2022',
     title: 'Título secundario argentino y Bachillerato español',
     place: 'Colegio e Instituto Superior Parque España',
     detail: 'Doble titulación',
@@ -142,7 +142,7 @@ export const education = [
 
 export const languages = [
   { name: 'Español', level: 'Nativo', value: 100 },
-  { name: 'Inglés', level: 'B2 · cursando en Aricana', value: 70 },
+  { name: 'Inglés', level: 'B2 · Intermedio-alto', value: 70 },
   { name: 'Portugués', level: 'Básico', value: 30 },
 ];
 

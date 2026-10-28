@@ -96,37 +96,6 @@
         flex-direction: column;
         gap: 7mm;
       }
-      .photo {
-        position: relative;
-        width: 38mm;
-        margin: 2mm 0 0 2mm;
-      }
-      .photo img {
-        display: block;
-        width: 38mm;
-        height: 46mm;
-        object-fit: cover;
-        border-radius: 1.5mm;
-        border: 1px solid var(--line);
-      }
-      .photo::before,
-      .photo::after {
-        content: '';
-        position: absolute;
-        width: 4mm;
-        height: 4mm;
-        border: 0 solid var(--accent);
-      }
-      .photo::before {
-        top: -1.8mm;
-        left: -1.8mm;
-        border-width: 1.6px 0 0 1.6px;
-      }
-      .photo::after {
-        bottom: -1.8mm;
-        right: -1.8mm;
-        border-width: 0 1.6px 1.6px 0;
-      }
       .side-block h2 {
         margin-bottom: 2.2mm;
       }
@@ -184,22 +153,6 @@
         border-radius: 1mm;
         background: #fff;
       }
-      .traits li {
-        list-style: none;
-        padding-left: 4mm;
-        position: relative;
-        margin-bottom: 1mm;
-      }
-      .traits li::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 2.3mm;
-        width: 2.2mm;
-        height: 1px;
-        background: var(--accent);
-      }
-
       /* ---------- Columna principal ---------- */
       main {
         padding: 14mm 13mm 12mm 11mm;
@@ -342,13 +295,13 @@
   <body>
     <div class="page">
       <aside>
-        <div class="photo">
-          <img src="../src/assets/ignacio-criscenti.jpg" alt="Foto de Ignacio Criscenti" />
-        </div>
-
         <div class="side-block contact">
           <h2 class="label">Contacto</h2>
           <ul>
+            <li>
+              <span class="k label">Ubicación</span>
+              <span class="v">Rosario, Santa Fe</span>
+            </li>
             <li>
               <span class="k label">Email</span>
               <a class="v" href="mailto:igcriscenti@gmail.com">igcriscenti@gmail.com</a>
@@ -372,7 +325,7 @@
               <div class="bar"><i style="width: 100%"></i></div>
             </li>
             <li>
-              <div class="row"><span>Inglés</span><span>B2 · Intermedio</span></div>
+              <div class="row"><span>Inglés</span><span>B2 · Intermedio-alto</span></div>
               <div class="bar"><i style="width: 70%"></i></div>
             </li>
             <li>
@@ -402,15 +355,6 @@
           </div>
         </div>
 
-        <div class="side-block traits">
-          <h2 class="label">Fortalezas</h2>
-          <ul>
-            <li>Trabajo en equipo</li>
-            <li>Orden y responsabilidad</li>
-            <li>Entregas en tiempo y forma</li>
-            <li>Buena recepción del feedback</li>
-          </ul>
-        </div>
       </aside>
 
       <main>
@@ -435,7 +379,7 @@
         <section>
           <div class="sec-head"><span class="label"><b>02</b></span><h2>Educación</h2></div>
           <div class="entry">
-            <span class="when">2026 — 2027</span>
+            <span class="when">2023 — 2027<br />(est.)</span>
             <div>
               <h3>Ingeniería en Sistemas Informáticos</h3>
               <span class="where">Universidad Abierta Interamericana</span><br />
@@ -451,7 +395,7 @@
             </div>
           </div>
           <div class="entry">
-            <span class="when">2017 — 2022</span>
+            <span class="when">2018 — 2022</span>
             <div>
               <h3>Título secundario argentino y Bachillerato español</h3>
               <span class="where">Colegio e Instituto Superior Parque España</span>

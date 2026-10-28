@@ -39,9 +39,12 @@ Otros comandos:
 ## Estructura
 
 ```
-├── cv/cv.html                 # Fuente del CV en PDF
+├── cv/
+│   ├── cv.html                # Fuente del CV en PDF
+│   └── cv-ats.html            # Versión simple a una columna para portales de empleo
 ├── public/
 │   ├── cv-ignacio-criscenti.pdf
+│   ├── cv-ignacio-criscenti-ats.pdf
 │   ├── og-image.png           # Imagen de vista previa al compartir el link
 │   └── favicon.svg
 └── src/
@@ -71,7 +74,7 @@ Para cambiar textos, proyectos o links alcanza con editar `src/data/profile.ts`.
 - **Modo claro / oscuro**: respeta la preferencia del sistema y recuerda la elección del usuario. Un script en el `<head>` aplica el tema antes de pintar para evitar el parpadeo.
 - **Animaciones sutiles** al hacer scroll con `IntersectionObserver`, desactivadas si el usuario tiene `prefers-reduced-motion`.
 - **Formulario de contacto**: valida nombre (mín. 2 caracteres), email (formato válido) y mensaje (10 a 1000 caracteres). Como el sitio es estático, al enviarlo se abre la app de correo con el mensaje precargado.
-- **CV descargable** generado desde `cv/cv.html` (Chrome → Imprimir → Guardar como PDF, A4, márgenes "Ninguno", con gráficos de fondo).
+- **CV descargable** generado desde `cv/cv.html` (Chrome → Imprimir → Guardar como PDF, A4, márgenes "Ninguno", con gráficos de fondo). La versión `cv/cv-ats.html` se exporta igual pero con márgenes "Predeterminados".
 
 ### Lighthouse
 
